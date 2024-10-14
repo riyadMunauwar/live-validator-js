@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation Example</title>
+    <script type="module" src="../src/FormValidator.js"></script>
+    <style>
+        .error {
+            color: red;
+            display: none; /* Hidden by default */
+        }
+    </style>
+</head>
+<body>
+    <form id="myForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username">
+            <div class="error" id="usernameError"></div>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            <div class="error" id="emailError"></div>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+            <div class="error" id="passwordError"></div>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script type="module">
+        import FormValidator from './src/FormValidator.js';
+
+        const schema = {
+            username: {
+                inputSelector: '#username',
+                errorSelector: '#usernameError',
+                rules: ['required', 'minLength:3', 'maxLength:15'],
+            },
+            email: {
+                inputSelector: '#email',
+                errorSelector: '#emailError',
+                rules: ['required', 'email'],
+            },
+            password: {
+                inputSelector: '#password',
+                errorSelector: '#passwordError',
+                rules: ['required', 'minLength:6'],
+            }
+        };
+
+        const form = document.getElementById('myForm');
+        const validator = new FormValidator(schema);
+
+        // Bind live validation to input fields
+        validator.bindLiveValidation(form);
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+
+            if (validator.validateAndDisplay(data, form)) {
+                alert('Form is valid! Submitting...');
+                // Proceed with form submission (e.g., AJAX request)
+            }
+        });
+    </script>
+</body>
+</html>
