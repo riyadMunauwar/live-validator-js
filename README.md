@@ -12,16 +12,16 @@
 ## Installation
 
 1. **Clone or Download** the repository.
-2. Include the `src/FormValidator.js` file in your project.
+2. Include the `src/LiveValidator.js` file in your project.
 
 ## Usage
 
 ### Basic Example
 
-1. Include the **`FormValidator.js`** file in your HTML.
+1. Include the **`LiveValidator.js`** file in your HTML.
 
 ```html
-<script type="module" src="src/FormValidator.js"></script>
+<script type="module" src="src/LiveValidator.js"></script>
 ```
 
 2. Define your validation schema and bind it to your form.
@@ -47,7 +47,7 @@
 </form>
 
 <script type="module">
-    import FormValidator from './src/FormValidator.js';
+    import LiveValidator from './src/LiveValidator.js';
 
     const schema = {
         username: {
@@ -68,7 +68,7 @@
     };
 
     const form = document.getElementById('myForm');
-    const validator = new FormValidator(schema);
+    const validator = new LiveValidator(schema);
 
     // Bind live validation to input fields
     validator.bindLiveValidation(form);
@@ -111,12 +111,12 @@ npm install --save-dev jest
 
 Create a test file in the **`tests`** directory:
 
-#### **`tests/FormValidator.test.js`**
+#### **`tests/LiveValidator.test.js`**
 
 ```javascript
-import FormValidator from '../src/FormValidator.js';
+import LiveValidator from '../src/LiveValidator.js';
 
-describe('FormValidator', () => {
+describe('LiveValidator', () => {
     const schema = {
         username: {
             inputSelector: '#username',
@@ -138,7 +138,7 @@ describe('FormValidator', () => {
     let validator;
 
     beforeEach(() => {
-        validator = new FormValidator(schema);
+        validator = new LiveValidator(schema);
     });
 
     test('should validate required fields', () => {
